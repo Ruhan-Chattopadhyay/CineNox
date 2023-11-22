@@ -7,12 +7,13 @@ class FinalMatrix{
     public static void main(String args[])
     
     {   FinalMatrix ob1=new FinalMatrix();
+        ob1.login();
         Scanner sc=new Scanner(System.in);
+        
         ob1.displayMenu();
         int choice=sc.nextInt();
         System.out.println("Press 1 for 12:30pm show\nPress 2 for 5:30pm show\nPress 3 for 7:30pm show");
         int time=sc.nextInt();
-
         if(choice==1)
             path+="Oppenheimer";
         else
@@ -35,20 +36,18 @@ class FinalMatrix{
 
     void login() //initial process
     {   Scanner sc=new Scanner(System.in);
-        movie ob1=new movie();
         System.out.println("Press\n1 for new guest user\n2 for existing user");
         int x=sc.nextInt(); // x is the choice of user
         switch(x)
         {
             case 1:
-                ob1.newuser();
+                newuser();
                 break;
 
             case 2:
-                ob1.existingUser();
+                existingUser();
                 break;
         }
-        sc.close();
     }
         
     //new user
@@ -63,15 +62,16 @@ class FinalMatrix{
             System.out.println("Enter user id");
             
             String id=sc.next(); //store user id;
+            name=id;
             sc.reset();
             System.out.println("Enter password");
             String pass=sc.next(); //store password
-            pw.println(id+" "+pass+" 0");
+            pw.println(id+" "+pass);
             
             pw.close();
             bw.close();
             fw.close();
-            sc.close();
+            
 
         }
         catch(Exception e)
@@ -96,7 +96,7 @@ class FinalMatrix{
                 s=br.readLine();
                 if(s==null)
                 {
-                    System.out.println("User not found");
+                    System.out.println("UserId or Password incorrect");
                     System.exit(0);
                 }
 
@@ -111,11 +111,7 @@ class FinalMatrix{
                 
             }
             br.close();
-            fr.close();
-            sc.close();
-            
-            
-
+            fr.close();     
         }
         catch(Exception e)
         {
@@ -241,7 +237,7 @@ class FinalMatrix{
                 if(fl2==0) System.out.println("Wrong choice");
             }
         }
-            Print();
+        
         }catch(Exception e)
         {
             System.out.println(e);

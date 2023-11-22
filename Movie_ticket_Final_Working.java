@@ -3,32 +3,36 @@ import java.io.*;
 class FinalMatrix{
     String a[][]=new String[10][12];
         static String path="";
+        static String path1="";
 
     public static void main(String args[])
     
-    {   FinalMatrix ob1=new FinalMatrix();
+    {   
+        System.out.println("\n\t\t\t\tWELCOME TO CINENOX E-TICKET BOOKING SYSTEM\n\n");
+        FinalMatrix ob1=new FinalMatrix();
         ob1.login();
         Scanner sc=new Scanner(System.in);
         
         ob1.displayMenu();
         int choice=sc.nextInt();
-        System.out.println("Press 1 for 12:30pm show\nPress 2 for 5:30pm show\nPress 3 for 7:30pm show");
+        System.out.println("Press 1 for 12:30 p.m. show\nPress 2 for 5:30 p.m. show\nPress 3 for 7:30 p.m. show");
         int time=sc.nextInt();
         if(choice==1)
-            path+="Oppenheimer";
+            path+="MISSION_IMPOSSIBLE_DEAD_RECKONING_II";
         else
-            path+="Jawan";
+            path+="JOHN_WICK_CHAPTER_4";
 
         switch(time){
-            case 1: path+="12_30_pm";
+            case 1: path+="_12_30p.m._";
                 break;
-            case 2: path+="5_30_pm";
+            case 2: path+="_5_30p.m._";
                 break;
-            case 3: path+="7_30_pm";
+            case 3: path+="_7_30p.m._";
                 break;
             default:System.out.println("Wrong timing choice");
                 System.exit(0);
         }
+        path1=path+"_userid.txt";
         path+=".txt";
         ob1.onboarding(path);
         path="";
@@ -67,7 +71,7 @@ class FinalMatrix{
             System.out.println("Enter password");
             String pass=sc.next(); //store password
             pw.println(id+" "+pass);
-            
+            System.out.println("Welcome "+id);
             pw.close();
             bw.close();
             fw.close();
@@ -119,7 +123,7 @@ class FinalMatrix{
         }
     }
     void CreateMatrix(){
-        char ch='J';  int x;
+        char ch='J'; int x;
         for(int i=0;i<3;i++)
         {
             x=1;
@@ -172,9 +176,9 @@ class FinalMatrix{
 
     void displayMenu()
     {
-        System.out.println("Press 1 for Oppenheimer\nPress 2 for Jawan");
+        System.out.println("Press 1 for MISSION IMPOSSIBLE DEAD RECKONING II\nPress 2 for JOHN WICK CHAPTER 4");
     }
-
+    String seatno[];
     void onboarding(String path){
         try
         {   FileWriter fw2=new FileWriter(path,true);
@@ -183,6 +187,7 @@ class FinalMatrix{
             Scanner sc=new Scanner(System.in);
             System.out.println("Enter number of seats to be booked:");
             int no=sc.nextInt();
+            seatno=new String[no]; int x=0;
             for(int i=1;i<=no;)
             {
                 System.out.println("Enter seat alphabet and number:");
@@ -215,13 +220,18 @@ class FinalMatrix{
                             {   FileWriter fw=new FileWriter(path,true);
                                 BufferedWriter bw=new BufferedWriter(fw);
                                 PrintWriter pw=new PrintWriter(bw);
-                                
+                                seatno[x++]=s;
                                 pw.print(s+" ");
                                 i++;fl1=1;
                                 pw.close();
 
                             }
-                            
+                            /*else if(q.compareTo("12")>0 || q.compareTo("1")<0){
+                                System.out.println("12 compare"+q.compareTo("12"));
+                                System.out.println("1 compare"+q.compareTo("1"));
+                                System.out.println("Seat doesnot exist");fl1=1;
+                                break;*/
+                           // }
                         }
                         fl2=1;
                         if(fl1==0) System.out.println("Occupied");
@@ -237,7 +247,8 @@ class FinalMatrix{
                 if(fl2==0) System.out.println("Wrong choice");
             }
         }
-        
+            //Print();
+            BillPrint(path1);
         }catch(Exception e)
         {
             System.out.println(e);
@@ -295,10 +306,47 @@ class FinalMatrix{
             }
             for(int j=0;j<12;j++){
                 System.out.print(a[i][j]+"     ");
-            }System.out.println();
+            }System.out.println("\n");
         }
         System.out.println("NORMAL: Rs. 200");
 
         System.out.println("\n\n\t\t\t ALL EYES HERE PLEASE!!!");
     }
+    
+    void BillPrint(String path1){
+        try{
+        FileWriter fw=new FileWriter(path1,true);
+                                BufferedWriter bw=new BufferedWriter(fw);
+                                PrintWriter pw=new PrintWriter(bw);
+        System.out.println("\n\n\n\t\t\t\t___Payment Bill___");int sum=0;
+        System.out.println("\n\t\t\t\tName of customer: "+name);pw.print(name+" ");
+        String movieName=path.substring(0,(path.indexOf("_")));
+        
+        String movieTime= path.substring((path.indexOf("_"))+1,(path.lastIndexOf("_")));
+        movieTime=movieTime.replace("_", ":");
+        System.out.println("\n\t\t\t\tMovie Name: "+movieName);pw.print(movieName+" ");
+        System.out.println("\n\t\t\t\tShow Timing: "+movieTime);pw.print(movieTime+" ");
+        System.out.print("\n\t\t\t\tSeats occupied: ");
+        for(int i=0;i<seatno.length;i++){
+            char p=seatno[i].charAt(0);
+            if(p<='C') sum+=200;
+            else if(p<='G') sum+=300;
+            else sum+=550;
+            System.out.print(seatno[i]+" ");pw.print(seatno[i]+" ");
+        }
+        System.out.println();
+        System.out.println("\n\t\t\t\tTotal cost of seats: "+sum+".00");
+        double tax,finalSum; tax= (0.18*sum);finalSum= sum+tax;
+        System.out.println("\n\t\t\t\tTax Amount: Rs. "+tax);
+        pw.print(finalSum+" ");
+        System.out.println("\n\t\t\t\tTotal Amount To Be Paid: "+ finalSum);
+        System.out.println("\n\t\t\t\tENJOY YOUR SHOW!!");
+        pw.println();
+        pw.close();
+    }
+    catch(Exception e){
+        System.out.println(e);
 }
+}
+}
+/* popcorn preference left to write....user login duplicate check left*/

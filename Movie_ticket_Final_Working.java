@@ -18,9 +18,9 @@ class FinalMatrix{
         System.out.println("Press 1 for 12:30 p.m. show\nPress 2 for 5:30 p.m. show\nPress 3 for 7:30 p.m. show");
         int time=sc.nextInt();
         if(choice==1)
-            path+="MISSION_IMPOSSIBLE_DEAD_RECKONING_II";
+            path+="MISSION IMPOSSIBLE DEAD RECKONING II";
         else
-            path+="JOHN_WICK_CHAPTER_4";
+            path+="JOHN WICK CHAPTER 4";
 
         switch(time){
             case 1: path+="_12_30p.m._";
@@ -87,7 +87,10 @@ class FinalMatrix{
     
     void existingUser() //for existing user
     {   try
-        {   Scanner sc=new Scanner(System.in);
+
+        {       FileWriter fw=new FileWriter("movie_userid.txt",true);
+                fw.close();
+               Scanner sc=new Scanner(System.in);
             System.out.println("Enter user id");
             String id1=sc.next(); //store user id to check;
             System.out.println("Enter password");
@@ -318,7 +321,7 @@ class FinalMatrix{
         FileWriter fw=new FileWriter(path1,true);
                                 BufferedWriter bw=new BufferedWriter(fw);
                                 PrintWriter pw=new PrintWriter(bw);
-        System.out.println("\n\n\n\t\t\t\t___Payment Bill___");int sum=0;
+        System.out.println("\n\n\n\t\t\t\t_Payment Bill_");int sum=0;
         System.out.println("\n\t\t\t\tName of customer: "+name);pw.print(name+" ");
         String movieName=path.substring(0,(path.indexOf("_")));
         

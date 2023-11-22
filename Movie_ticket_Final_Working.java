@@ -292,7 +292,7 @@ class FinalMatrix{
         for(int i=0;i<10;i++)
         {
             if(i==3){
-                System.out.println();System.out.println("ROYAL RECLINER: Rs. 550"); System.out.println();
+                System.out.println();System.out.println(""); System.out.println();
             }
             if(i==7){
                 System.out.println();System.out.println("EXECUTIVE: Rs. 300"); System.out.println();

@@ -32,8 +32,98 @@ class FinalMatrix{
         ob1.onboarding(path);
         path="";
     }
+
+    void login() //initial process
+    {   Scanner sc=new Scanner(System.in);
+        movie ob1=new movie();
+        System.out.println("Press\n1 for new guest user\n2 for existing user");
+        int x=sc.nextInt(); // x is the choice of user
+        switch(x)
+        {
+            case 1:
+                ob1.newuser();
+                break;
+
+            case 2:
+                ob1.existingUser();
+                break;
+        }
+        sc.close();
+    }
+        
+    //new user
+    String name="";
+    void newuser()
+    {   
+        try
+        {   Scanner sc=new Scanner(System.in);
+            FileWriter fw=new FileWriter("movie_userid.txt",true);
+            BufferedWriter bw=new BufferedWriter(fw);
+            PrintWriter pw=new PrintWriter(bw);
+            System.out.println("Enter user id");
+            
+            String id=sc.next(); //store user id;
+            sc.reset();
+            System.out.println("Enter password");
+            String pass=sc.next(); //store password
+            pw.println(id+" "+pass+" 0");
+            
+            pw.close();
+            bw.close();
+            fw.close();
+            sc.close();
+
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            System.exit(0);
+        }
+    }
+    
+    void existingUser() //for existing user
+    {   try
+        {   Scanner sc=new Scanner(System.in);
+            System.out.println("Enter user id");
+            String id1=sc.next(); //store user id to check;
+            System.out.println("Enter password");
+            String pass1=sc.next(); //store password to check
+            FileReader fr=new FileReader("movie_userid.txt");
+            BufferedReader br=new BufferedReader(fr);
+            String s; 
+            while (true)
+            {   
+                s=br.readLine();
+                if(s==null)
+                {
+                    System.out.println("User not found");
+                    System.exit(0);
+                }
+
+                String[] words=s.split(" ");
+                
+                if(words[0].equals(id1) && words[1].equals(pass1))
+                {
+                System.out.println("Welcome "+id1);
+                name=id1;
+                    break;
+                }
+                
+            }
+            br.close();
+            fr.close();
+            sc.close();
+            
+            
+
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
     void CreateMatrix(){
-        char ch='J'; int b=1; int x;
+        char ch='J';  int x;
         for(int i=0;i<3;i++)
         {
             x=1;
@@ -135,12 +225,7 @@ class FinalMatrix{
                                 pw.close();
 
                             }
-                            /*else if(q.compareTo("12")>0 || q.compareTo("1")<0){
-                                System.out.println("12 compare"+q.compareTo("12"));
-                                System.out.println("1 compare"+q.compareTo("1"));
-                                System.out.println("Seat doesnot exist");fl1=1;
-                                break;*/
-                           // }
+                            
                         }
                         fl2=1;
                         if(fl1==0) System.out.println("Occupied");

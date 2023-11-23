@@ -202,14 +202,15 @@ class FinalMatrix{
         try
         {   FileWriter fw2=new FileWriter(path,true);
               Print();
+              System.out.println("\n* Represents Booked Seats\n");
               fw2.close();
             Scanner sc=new Scanner(System.in);
-            System.out.println("Enter number of seats to be booked:");
+            System.out.println("\n\nEnter number of seats to be booked:");
             int no=sc.nextInt();
             seatno=new String[no]; int x=0;
             for(int i=1;i<=no;)
             {
-                System.out.println("Enter seat alphabet and number:");
+                System.out.println("\nEnter seat alphabet and number:");
                 String s=sc.next();
                 String p=""+s.charAt(0);
                 p=p.toUpperCase();
@@ -224,7 +225,7 @@ class FinalMatrix{
                 ;
                 
                 if(qcopy>numberOfSeats||qcopy<=0)
-                System.out.println("Wrong Choice");
+                System.out.println("Entered Seat Alphabet Does not Exist");
                 else
                 {
                 for(int j=0;j<10;j++)
@@ -253,7 +254,7 @@ class FinalMatrix{
                            // }
                         }
                         fl2=1;
-                        if(fl1==0) System.out.println("Occupied");
+                        if(fl1==0) System.out.println("Seat Already Occupied, Kindly Choose an empty seat");
                         else
                         {   
                             break;
@@ -416,5 +417,3 @@ void Food(){
       BillPrint(path1);
     }
 }
-
-/* popcorn preference left to write....user login duplicate check left*/

@@ -2,45 +2,59 @@ import java.util.*;
 import java.io.*;
 class FinalMatrix{
     String a[][]=new String[10][12];
-        static String path="";
-        static String path1="";
+    static String path="";
+    static String path1="";
+    static int exitallowed=0;
 
     public static void main(String args[])
-    
-    {   
-        System.out.println("\n\t\t\t\tWELCOME TO CINENOX E-TICKET BOOKING SYSTEM\n\n");
-        FinalMatrix ob1=new FinalMatrix();
-        ob1.login();
-        Scanner sc=new Scanner(System.in);
-        
-        ob1.displayMenu();
-        int choice=sc.nextInt();
-        System.out.println("Press 1 for 12:30 p.m. show\nPress 2 for 5:30 p.m. show\nPress 3 for 7:30 p.m. show");
-        int time=sc.nextInt();
-        if(choice==1)
-            path+="MISSION IMPOSSIBLE DEAD RECKONING II";
-        else
-            path+="JOHN WICK CHAPTER 4";
 
-        switch(time){
-            case 1: path+="_12_30p.m._";
-                break;
-            case 2: path+="_5_30p.m._";
-                break;
-            case 3: path+="_7_30p.m._";
-                break;
-            default:System.out.println("Wrong timing choice");
-                System.exit(0);
+    {   
+            System.out.println("\n\t\t\t\tWELCOME TO CINENOX E-TICKET BOOKING SYSTEM\n\n");
+            while (true){
+            FinalMatrix ob1=new FinalMatrix();
+            if(exitallowed==1)
+            {
+                Scanner sc=new Scanner(System.in);
+                System.out.println("Press\n1.To go back to first menu\n2.To exit");
+                if(sc.nextInt()==2)
+                {   System.out.println("\t\t\tThanks for giving us your time");
+                    System.exit(0);
+                }
+                sc.close();
+            }
+            exitallowed=1;
+            ob1.login();
+            Scanner sc=new Scanner(System.in);
+
+            ob1.displayMenu();
+            int choice=sc.nextInt();
+            System.out.println("Press 1 for 12:30 p.m. show\nPress 2 for 5:30 p.m. show\nPress 3 for 7:30 p.m. show");
+            int time=sc.nextInt();
+            if(choice==1)
+                path+="MISSION IMPOSSIBLE DEAD RECKONING II";
+            else
+                path+="JOHN WICK CHAPTER 4";
+
+            switch(time){
+                case 1: path+="_12_30p.m._";
+                    break;
+                case 2: path+="_5_30p.m._";
+                    break;
+                case 3: path+="_7_30p.m._";
+                    break;
+                default:System.out.println("Wrong timing choice");
+                    System.exit(0);
+            }
+            path1=path+"_userid.txt";
+            path+=".txt";
+            ob1.onboarding(path);
+            path="";
         }
-        path1=path+"_userid.txt";
-        path+=".txt";
-        ob1.onboarding(path);
-        path="";
     }
 
     void login() //initial process
     {   Scanner sc=new Scanner(System.in);
-        System.out.println("Press\n1 for new guest user\n2 for existing user");
+        System.out.println("Press\n1 For new guest user\n2 For existing user");
         int x=sc.nextInt(); // x is the choice of user
         switch(x)
         {
@@ -51,9 +65,13 @@ class FinalMatrix{
             case 2:
                 existingUser();
                 break;
+                default:
+                    System.out.println("Wrong choice was selected");
+                    System.exit(0);
+                    break;
         }
     }
-        
+
     //new user
     String name="";
     void newuser()
@@ -64,7 +82,7 @@ class FinalMatrix{
             BufferedWriter bw=new BufferedWriter(fw);
             PrintWriter pw=new PrintWriter(bw);
             System.out.println("Enter user id");
-            
+
             String id=sc.next(); //store user id;
             name=id;
             sc.reset();
@@ -72,7 +90,7 @@ class FinalMatrix{
             String pass=sc.next(); //store password
             FileReader fr=new FileReader("movie_userid.txt");
             BufferedReader br= new BufferedReader(fr);
-           String s=br.readLine();
+            String s=br.readLine();
 
             while( s!=null) //check for duplicate user
             {   String checker=id+" "+pass;
@@ -85,13 +103,12 @@ class FinalMatrix{
             }
             br.close();
             fr.close();
-              
+
             pw.println(id+" "+pass);
             System.out.println("Welcome "+id);
             pw.close();
             bw.close();
             fw.close();
-            
 
         }
         catch(Exception e)
@@ -100,13 +117,13 @@ class FinalMatrix{
             System.exit(0);
         }
     }
-    
+
     void existingUser() //for existing user
     {   try
 
         {       FileWriter fw=new FileWriter("movie_userid.txt",true);
-                fw.close();
-               Scanner sc=new Scanner(System.in);
+            fw.close();
+            Scanner sc=new Scanner(System.in);
             System.out.println("Enter user id");
             String id1=sc.next(); //store user id to check;
             System.out.println("Enter password");
@@ -124,14 +141,14 @@ class FinalMatrix{
                 }
 
                 String[] words=s.split(" ");
-                
+
                 if(words[0].equals(id1) && words[1].equals(pass1))
                 {
-                System.out.println("Welcome "+id1);
-                name=id1;
+                    System.out.println("Welcome "+id1);
+                    name=id1;
                     break;
                 }
-                
+
             }
             br.close();
             fr.close();     
@@ -141,7 +158,7 @@ class FinalMatrix{
             System.out.println(e);
         }
     }
-    
+
     void CreateMatrix(){
         char ch='J'; int x;
         for(int i=0;i<3;i++)
@@ -192,21 +209,20 @@ class FinalMatrix{
             ch--;
         } 
     }
-    
 
     void displayMenu()
     {
         System.out.println("Press 1 for MISSION IMPOSSIBLE DEAD RECKONING II\nPress 2 for JOHN WICK CHAPTER 4");
     }
-    
+
     String seatno[];
-    
+
     void onboarding(String path){
         try
         {   FileWriter fw2=new FileWriter(path,true);
-              Print();
-              System.out.println("\n\t\t\t* Represents Booked Seats\n");
-              fw2.close();
+            Print();
+            System.out.println("\n\t\t\t* Represents Booked Seats\n");
+            fw2.close();
             Scanner sc=new Scanner(System.in);
             System.out.println("\n\nEnter number of Seats to be Booked:");
             int no=sc.nextInt();
@@ -222,49 +238,49 @@ class FinalMatrix{
                 String checkNumberOfSeats="ABCJIH";
                 int numberOfSeats=0;
                 if(checkNumberOfSeats.indexOf(p)!=-1)
-                numberOfSeats=7;
+                    numberOfSeats=7;
                 else
-                numberOfSeats=11
-                ;
-                
+                    numberOfSeats=11
+                    ;
+
                 if(qcopy>numberOfSeats||qcopy<=0)
-                System.out.println("Entered Seat Does Not Exist");
+                    System.out.println("Entered Seat Does Not Exist");
                 else
                 {
-                for(int j=0;j<10;j++)
-                {   FileWriter fw1=new FileWriter(path,true);
-                    check(path);
-                    fw1.close();
-                    if(a[j][0].equals(p))
-                    {
-                        for(int k=0;k<12;k++)
+                    for(int j=0;j<10;j++)
+                    {   FileWriter fw1=new FileWriter(path,true);
+                        check(path);
+                        fw1.close();
+                        if(a[j][0].equals(p))
                         {
-                            if(a[j][k].equals(q))
-                            {   FileWriter fw=new FileWriter(path,true);
-                                BufferedWriter bw=new BufferedWriter(fw);
-                                PrintWriter pw=new PrintWriter(bw);
-                                seatno[x++]=s;
-                                pw.print(s+" ");
-                                i++;fl1=1;
-                                pw.close();
+                            for(int k=0;k<12;k++)
+                            {
+                                if(a[j][k].equals(q))
+                                {   FileWriter fw=new FileWriter(path,true);
+                                    BufferedWriter bw=new BufferedWriter(fw);
+                                    PrintWriter pw=new PrintWriter(bw);
+                                    seatno[x++]=s;
+                                    pw.print(s+" ");
+                                    i++;fl1=1;
+                                    pw.close();
+
+                                }
 
                             }
-                           
-                        }
-                        fl2=1;
-                        if(fl1==0) System.out.println("Seat Already Occupied, Kindly Choose an Empty Seat");
-                        else
-                        {   
-                            break;
+                            fl2=1;
+                            if(fl1==0) System.out.println("Seat Already Occupied, Kindly Choose an Empty Seat");
+                            else
+                            {   
+                                break;
 
+                            }
                         }
+
                     }
 
+                    if(fl2==0) System.out.println("Entered Seat Does Not Exist");
                 }
-            
-                if(fl2==0) System.out.println("Entered Seat Does Not Exist");
             }
-        }
             //Print();
             System.out.print("Press\n 1. To view Payment Bill \n 2. To Order Food Items");
             int opt=sc.nextInt();
@@ -327,7 +343,7 @@ class FinalMatrix{
             }
             if(i==7){
                 System.out.println();System.out.println("EXECUTIVE: Rs. 300"); System.out.println();
-                
+
             }
             for(int j=0;j<12;j++){
                 System.out.print(a[i][j]+"     ");
@@ -337,89 +353,89 @@ class FinalMatrix{
 
         System.out.println("\n\n\t\t\t ALL EYES HERE PLEASE!!!");
     }
-    
+
     void BillPrint(String path1)
     {
         try{
-        FileWriter fw=new FileWriter(path1,true);
-                                BufferedWriter bw=new BufferedWriter(fw);
-                                PrintWriter pw=new PrintWriter(bw);
-        System.out.println("\n\n\n\t\t\t\t_Payment Bill_");int sum=0;
-        System.out.println("\n\t\t\t\tName of customer: "+name);pw.print(name+" ");
-        String movieName=path.substring(0,(path.indexOf("_")));
-        
-        String movieTime= path.substring((path.indexOf("_"))+1,(path.lastIndexOf("_")));
-        movieTime=movieTime.replace("_", ":");
-        System.out.println("\n\t\t\t\tMovie Name: "+movieName);pw.print(movieName+" ");
-        System.out.println("\n\t\t\t\tShow Timing: "+movieTime);pw.print(movieTime+" ");
-        System.out.print("\n\t\t\t\tSeats Occupied: ");
-        for(int i=0;i<seatno.length;i++)
-        {
-            char p=seatno[i].charAt(0);
-            if(p<='C') sum+=200;
-            else if(p<='G') sum+=300;
-            else sum+=550;
-            System.out.print(seatno[i]+" ");pw.print(seatno[i]+" ");
+            FileWriter fw=new FileWriter(path1,true);
+            BufferedWriter bw=new BufferedWriter(fw);
+            PrintWriter pw=new PrintWriter(bw);
+            System.out.println("\n\n\n\t\t\t\t_Payment Bill_");int sum=0;
+            System.out.println("\n\t\t\t\tName of customer: "+name);pw.print(name+" ");
+            String movieName=path.substring(0,(path.indexOf("_")));
+
+            String movieTime= path.substring((path.indexOf("_"))+1,(path.lastIndexOf("_")));
+            movieTime=movieTime.replace("_", ":");
+            System.out.println("\n\t\t\t\tMovie Name: "+movieName);pw.print(movieName+" ");
+            System.out.println("\n\t\t\t\tShow Timing: "+movieTime);pw.print(movieTime+" ");
+            System.out.print("\n\t\t\t\tSeats Occupied: ");
+            for(int i=0;i<seatno.length;i++)
+            {
+                char p=seatno[i].charAt(0);
+                if(p<='C') sum+=200;
+                else if(p<='G') sum+=300;
+                else sum+=550;
+                System.out.print(seatno[i]+" ");pw.print(seatno[i]+" ");
+            }
+            System.out.println();
+            System.out.println("\n\t\t\t\tTotal Cost Of Seats: "+sum+".00");
+            if(foodCost!=0)
+            { 
+                sum+=foodCost;System.out.println("\n\t\t\t\tCost of Food: "+foodCost);
+            }
+            double tax,finalSum; 
+            tax= (0.18*sum);
+            finalSum= sum+tax;
+            System.out.print("\n\t\t\t\tTax Amount: Rs. ");
+            System.out.printf("%.2f",tax);
+            System.out.println();
+            pw.print(finalSum+" ");
+            System.out.print("\n\t\t\t\tTotal Amount To Be Paid: ");
+            System.out.printf("%2f",finalSum);
+            System.out.println();
+            System.out.println("\n\t\t\t\tENJOY YOUR SHOW!!");
+            pw.println();
+            pw.close();
         }
-        System.out.println();
-        System.out.println("\n\t\t\t\tTotal Cost Of Seats: "+sum+".00");
-        if(foodCost!=0)
-        { 
-            sum+=foodCost;System.out.println("\n\t\t\t\tCost of Food: "+foodCost);
+        catch(Exception e){
+            System.out.println(e);
         }
-        double tax,finalSum; 
-        tax= (0.18*sum);
-        finalSum= sum+tax;
-        System.out.print("\n\t\t\t\tTax Amount: Rs. ");
-        System.out.printf("%.2f",tax);
-        System.out.println();
-        pw.print(finalSum+" ");
-        System.out.print("\n\t\t\t\tTotal Amount To Be Paid: ");
-        System.out.printf("%2f",finalSum);
-        System.out.println();
-        System.out.println("\n\t\t\t\tENJOY YOUR SHOW!!");
-        pw.println();
-        pw.close();
-        }
-    catch(Exception e){
-        System.out.println(e);
     }
-}
 
-int foodCost=0;
+    int foodCost=0;
 
-void Food(){
-    Scanner sc=new Scanner(System.in);
-    System.out.println("Press\n 1. For Popcorn \n 2. For Cold Drinks");
-    int opt=sc.nextInt();
-    switch(opt){
-        case 1: System.out.println("Press\n 1. For Small Rs.  90\n 2. For Medium Rs. 120\n 3. For Large Rs. 150");
-        int size=sc.nextInt();
-        System.out.println("Enter no. of orders");
-        int no=sc.nextInt();
-        switch(size)
-        {
-            case 1: foodCost=90*no; break;
-            case 2: foodCost=120*no; break;
-            case 3: foodCost= 150*no; break;
-            default: System.out.println("Invalid choice"); break;
-        }
-            break;
+    void Food(){
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Press\n 1. For Popcorn \n 2. For Cold Drinks");
+        int opt=sc.nextInt();
+        switch(opt){
+            case 1: System.out.println("Press\n 1. For Small Rs.  90\n 2. For Medium Rs. 120\n 3. For Large Rs. 150");
+                int size=sc.nextInt();
+                System.out.println("Enter no. of orders");
+                int no=sc.nextInt();
+                switch(size)
+                {
+                    case 1: foodCost=90*no; break;
+                    case 2: foodCost=120*no; break;
+                    case 3: foodCost= 150*no; break;
+                    default: System.out.println("Invalid choice"); break;
+                }
+                break;
             case 2: System.out.println("Press\n 1. For Small Rs.  40\n 2. For Medium Rs. 60\n 3. For Large Rs. 70");
-        int size2=sc.nextInt();
-        System.out.println("Enter no. of orders");
-        int no2=sc.nextInt();
-        switch(size2)
-        {
-            case 1: foodCost=40*no2; break;
-            case 2: foodCost=60*no2; break;
-            case 3: foodCost= 70*no2; break;
-            default: System.out.println("Invalid choice"); break;
-        }
-            break;
+                int size2=sc.nextInt();
+                System.out.println("Enter no. of orders");
+                int no2=sc.nextInt();
+                switch(size2)
+                {
+                    case 1: foodCost=40*no2; break;
+                    case 2: foodCost=60*no2; break;
+                    case 3: foodCost= 70*no2; break;
+                    default: System.out.println("Invalid choice"); break;
+                }
+                break;
             default: System.out.println("Invalid choice");
         }
-      BillPrint(path1);
+        BillPrint(path1);
     }
-    
-}//end of class
+
+}//end of class

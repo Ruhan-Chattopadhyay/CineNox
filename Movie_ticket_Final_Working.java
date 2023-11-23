@@ -367,5 +367,40 @@ class FinalMatrix{
         System.out.println(e);
 }
 }
+int foodcost=0;
+void Food(){
+    Scanner sc=new Scanner(System.in);
+    System.out.println("Press\n 1. for Popcorn \n 2. for Cold Drinks");
+    int opt=sc.nextInt();
+    switch(opt){
+        case 1: System.out.println("Press\n 1. For Small Rs.  90\n 2. for Medium Rs. 120\n 3. for Large Rs. 150");
+        int size=sc.nextInt();
+        System.out.println("Enter no. of orders");
+        int no=sc.nextInt();
+        switch(size)
+        {
+            case 1: foodCost=90*no; break;
+            case 2: foodCost=120*no; break;
+            case 3: foodcost= 150*no; break;
+            default: System.out.println("Invalid choice"); break;
+        }
+            break;
+            case 2: System.out.println("Press\n 1. For Small Rs.  40\n 2. for Medium Rs. 60\n 3. for Large Rs. 70");
+        int size2=sc.nextInt();
+        System.out.println("Enter no. of orders");
+        int no2=sc.nextInt();
+        switch(size2)
+        {
+            case 1: foodCost=40*no2; break;
+            case 2: foodCost=60*no2; break;
+            case 3: foodcost= 70*no2; break;
+            default: System.out.println("Invalid choice"); break;
+        }
+            break;
+            default: System.out.println("Invalid choice");
+        }
+
+    }
+}
 }
 /* popcorn preference left to write....user login duplicate check left*/

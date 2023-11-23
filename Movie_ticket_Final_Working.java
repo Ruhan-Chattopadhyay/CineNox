@@ -70,6 +70,22 @@ class FinalMatrix{
             sc.reset();
             System.out.println("Enter password");
             String pass=sc.next(); //store password
+            FileReader fr=new FileReader("movie_userid.txt");
+            BufferedReader br= new BufferedReader(fr);
+           String s=br.readLine();
+
+            while( s!=null) //check for duplicate user
+            {   String checker=id+" "+pass;
+                if(s.equals(checker))
+                {
+                    System.out.println("User already exists");
+                    System.exit(0);
+                }
+                s=br.readLine();
+            }
+            br.close();
+            fr.close();
+              
             pw.println(id+" "+pass);
             System.out.println("Welcome "+id);
             pw.close();

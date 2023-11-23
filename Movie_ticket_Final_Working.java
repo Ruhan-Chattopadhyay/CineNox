@@ -267,7 +267,13 @@ class FinalMatrix{
             }
         }
             //Print();
-            BillPrint(path1);
+            System.out.print("Press\n 1. To view Payment Bill \n 2. To Order Food Items");
+            int opt=sc.nextInt();
+            switch(opt){
+                case 1: BillPrint(path1);break;
+                case 2: Food();break;
+                default: System.out.println("Invalid choice, Food Item unable to add");BillPrint(path1);
+            }
         }catch(Exception e)
         {
             System.out.println(e);
@@ -322,6 +328,7 @@ class FinalMatrix{
             }
             if(i==7){
                 System.out.println();System.out.println("EXECUTIVE: Rs. 300"); System.out.println();
+                
             }
             for(int j=0;j<12;j++){
                 System.out.print(a[i][j]+"     ");
@@ -355,8 +362,15 @@ class FinalMatrix{
         }
         System.out.println();
         System.out.println("\n\t\t\t\tTotal cost of seats: "+sum+".00");
-        double tax,finalSum; tax= (0.18*sum);finalSum= sum+tax;
+        if(foodCost!=0)
+        { 
+            sum+=foodCost;System.out.println("\n\t\t\t\tCost of Food: "+foodCost);
+        }
+        double tax,finalSum; 
+        tax= (0.18*sum);
+        finalSum= sum+tax;
         System.out.println("\n\t\t\t\tTax Amount: Rs. "+tax);
+        
         pw.print(finalSum+" ");
         System.out.println("\n\t\t\t\tTotal Amount To Be Paid: "+ finalSum);
         System.out.println("\n\t\t\t\tENJOY YOUR SHOW!!");
@@ -367,7 +381,7 @@ class FinalMatrix{
         System.out.println(e);
 }
 }
-int foodcost=0;
+int foodCost=0;
 void Food(){
     Scanner sc=new Scanner(System.in);
     System.out.println("Press\n 1. for Popcorn \n 2. for Cold Drinks");
@@ -381,7 +395,7 @@ void Food(){
         {
             case 1: foodCost=90*no; break;
             case 2: foodCost=120*no; break;
-            case 3: foodcost= 150*no; break;
+            case 3: foodCost= 150*no; break;
             default: System.out.println("Invalid choice"); break;
         }
             break;
@@ -393,14 +407,14 @@ void Food(){
         {
             case 1: foodCost=40*no2; break;
             case 2: foodCost=60*no2; break;
-            case 3: foodcost= 70*no2; break;
+            case 3: foodCost= 70*no2; break;
             default: System.out.println("Invalid choice"); break;
         }
             break;
             default: System.out.println("Invalid choice");
         }
-
+      BillPrint(path1);
     }
 }
-}
+
 /* popcorn preference left to write....user login duplicate check left*/

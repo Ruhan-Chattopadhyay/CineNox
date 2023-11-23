@@ -246,12 +246,7 @@ class FinalMatrix{
                                 pw.close();
 
                             }
-                            /*else if(q.compareTo("12")>0 || q.compareTo("1")<0){
-                                System.out.println("12 compare"+q.compareTo("12"));
-                                System.out.println("1 compare"+q.compareTo("1"));
-                                System.out.println("Seat doesnot exist");fl1=1;
-                                break;*/
-                           // }
+                           
                         }
                         fl2=1;
                         if(fl1==0) System.out.println("Seat Already Occupied, Kindly Choose an empty seat");
@@ -416,4 +411,5 @@ void Food(){
         }
       BillPrint(path1);
     }
-}
+    
+}//end of class

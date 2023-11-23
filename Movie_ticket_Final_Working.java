@@ -141,6 +141,7 @@ class FinalMatrix{
             System.out.println(e);
         }
     }
+    
     void CreateMatrix(){
         char ch='J'; int x;
         for(int i=0;i<3;i++)
@@ -197,20 +198,22 @@ class FinalMatrix{
     {
         System.out.println("Press 1 for MISSION IMPOSSIBLE DEAD RECKONING II\nPress 2 for JOHN WICK CHAPTER 4");
     }
+    
     String seatno[];
+    
     void onboarding(String path){
         try
         {   FileWriter fw2=new FileWriter(path,true);
               Print();
-              System.out.println("\n* Represents Booked Seats\n");
+              System.out.println("\n\t\t\t* Represents Booked Seats\n");
               fw2.close();
             Scanner sc=new Scanner(System.in);
-            System.out.println("\n\nEnter number of seats to be booked:");
+            System.out.println("\n\nEnter number of Seats to be Booked:");
             int no=sc.nextInt();
             seatno=new String[no]; int x=0;
             for(int i=1;i<=no;)
             {
-                System.out.println("\nEnter seat alphabet and number:");
+                System.out.println("\nEnter Seat Alphabet and Number:\n Example: A1\n");
                 String s=sc.next();
                 String p=""+s.charAt(0);
                 p=p.toUpperCase();
@@ -225,7 +228,7 @@ class FinalMatrix{
                 ;
                 
                 if(qcopy>numberOfSeats||qcopy<=0)
-                System.out.println("Entered Seat Alphabet Does not Exist");
+                System.out.println("Entered Seat Does Not Exist");
                 else
                 {
                 for(int j=0;j<10;j++)
@@ -249,7 +252,7 @@ class FinalMatrix{
                            
                         }
                         fl2=1;
-                        if(fl1==0) System.out.println("Seat Already Occupied, Kindly Choose an empty seat");
+                        if(fl1==0) System.out.println("Seat Already Occupied, Kindly Choose an Empty Seat");
                         else
                         {   
                             break;
@@ -259,7 +262,7 @@ class FinalMatrix{
 
                 }
             
-                if(fl2==0) System.out.println("Wrong choice");
+                if(fl2==0) System.out.println("Entered Seat Does Not Exist");
             }
         }
             //Print();
@@ -335,7 +338,8 @@ class FinalMatrix{
         System.out.println("\n\n\t\t\t ALL EYES HERE PLEASE!!!");
     }
     
-    void BillPrint(String path1){
+    void BillPrint(String path1)
+    {
         try{
         FileWriter fw=new FileWriter(path1,true);
                                 BufferedWriter bw=new BufferedWriter(fw);
@@ -348,8 +352,9 @@ class FinalMatrix{
         movieTime=movieTime.replace("_", ":");
         System.out.println("\n\t\t\t\tMovie Name: "+movieName);pw.print(movieName+" ");
         System.out.println("\n\t\t\t\tShow Timing: "+movieTime);pw.print(movieTime+" ");
-        System.out.print("\n\t\t\t\tSeats occupied: ");
-        for(int i=0;i<seatno.length;i++){
+        System.out.print("\n\t\t\t\tSeats Occupied: ");
+        for(int i=0;i<seatno.length;i++)
+        {
             char p=seatno[i].charAt(0);
             if(p<='C') sum+=200;
             else if(p<='G') sum+=300;
@@ -357,7 +362,7 @@ class FinalMatrix{
             System.out.print(seatno[i]+" ");pw.print(seatno[i]+" ");
         }
         System.out.println();
-        System.out.println("\n\t\t\t\tTotal cost of seats: "+sum+".00");
+        System.out.println("\n\t\t\t\tTotal Cost Of Seats: "+sum+".00");
         if(foodCost!=0)
         { 
             sum+=foodCost;System.out.println("\n\t\t\t\tCost of Food: "+foodCost);
@@ -365,25 +370,30 @@ class FinalMatrix{
         double tax,finalSum; 
         tax= (0.18*sum);
         finalSum= sum+tax;
-        System.out.println("\n\t\t\t\tTax Amount: Rs. "+tax);
-        
+        System.out.print("\n\t\t\t\tTax Amount: Rs. ");
+        System.out.printf("%.2f",tax);
+        System.out.println();
         pw.print(finalSum+" ");
-        System.out.println("\n\t\t\t\tTotal Amount To Be Paid: "+ finalSum);
+        System.out.print("\n\t\t\t\tTotal Amount To Be Paid: ");
+        System.out.printf("%2f",finalSum);
+        System.out.println();
         System.out.println("\n\t\t\t\tENJOY YOUR SHOW!!");
         pw.println();
         pw.close();
-    }
+        }
     catch(Exception e){
         System.out.println(e);
+    }
 }
-}
+
 int foodCost=0;
+
 void Food(){
     Scanner sc=new Scanner(System.in);
-    System.out.println("Press\n 1. for Popcorn \n 2. for Cold Drinks");
+    System.out.println("Press\n 1. For Popcorn \n 2. For Cold Drinks");
     int opt=sc.nextInt();
     switch(opt){
-        case 1: System.out.println("Press\n 1. For Small Rs.  90\n 2. for Medium Rs. 120\n 3. for Large Rs. 150");
+        case 1: System.out.println("Press\n 1. For Small Rs.  90\n 2. For Medium Rs. 120\n 3. For Large Rs. 150");
         int size=sc.nextInt();
         System.out.println("Enter no. of orders");
         int no=sc.nextInt();
@@ -395,7 +405,7 @@ void Food(){
             default: System.out.println("Invalid choice"); break;
         }
             break;
-            case 2: System.out.println("Press\n 1. For Small Rs.  40\n 2. for Medium Rs. 60\n 3. for Large Rs. 70");
+            case 2: System.out.println("Press\n 1. For Small Rs.  40\n 2. For Medium Rs. 60\n 3. For Large Rs. 70");
         int size2=sc.nextInt();
         System.out.println("Enter no. of orders");
         int no2=sc.nextInt();
